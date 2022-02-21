@@ -8,6 +8,13 @@ namespace MinimalistTasks.Controller;
 [ApiController]
 public class TodoController : ControllerBase
 {
+    private readonly ILogger<ITodo> _logger;
+
+    public TodoController(ILogger<ITodo> logger)
+    {
+        _logger = logger;
+    }
+
     [HttpGet]
     public async Task<IEnumerable<ITodo>> GetTodos()
     {
@@ -31,6 +38,8 @@ public class TodoController : ControllerBase
 
         todos = todos.Append(todoOne);
         todos = todos.Append(todoTwo);
+        
+        _logger.LogInformation("Task: {text}", todoOne.Text);
 
         return todos;
     }
