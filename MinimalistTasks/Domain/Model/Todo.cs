@@ -9,6 +9,10 @@ public class Todo : ITodo
     public DateTime CreationDate { get; set; }
     public bool IsCompleted { get; set; }
 
+    public Todo()
+    {
+    }
+
     public Todo(int id, string text, DateTime creationDate, bool isCompleted)
     {
         Id = id;

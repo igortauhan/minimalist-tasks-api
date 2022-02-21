@@ -9,6 +9,10 @@ public class User : IUser
     public string Email { get; set; }
     public IEnumerable<ITodo> Todos { get; set; } = new List<ITodo>();
 
+    public User()
+    {
+    }
+
     public User(int id, string name, string email)
     {
         Id = id;
