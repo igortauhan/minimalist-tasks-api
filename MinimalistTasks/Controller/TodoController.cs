@@ -22,7 +22,7 @@ public class TodoController : ControllerBase
         
         ITodo todoOne = new Todo
         {
-            Id = 1,
+            TodoId = 1,
             Text = "Task one",
             CreationDate = DateTime.Now,
             IsCompleted = false
@@ -30,7 +30,7 @@ public class TodoController : ControllerBase
         
         ITodo todoTwo = new Todo
         {
-            Id = 2,
+            TodoId = 2,
             Text = "Task two",
             CreationDate = DateTime.Now,
             IsCompleted = true
