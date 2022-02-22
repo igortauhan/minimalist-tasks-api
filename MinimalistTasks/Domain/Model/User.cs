@@ -4,7 +4,7 @@ namespace MinimalistTasks.Domain.Model;
 
 public class User : IUser
 {
-    public int Id { get; set; }
+    public int UserId { get; set; }
     public string? Name { get; set; }
     public string? Email { get; set; }
     public IEnumerable<ITodo> Todos { get; set; } = new List<ITodo>();
@@ -13,9 +13,9 @@ public class User : IUser
     {
     }
 
-    public User(int id, string name, string email)
+    public User(int userId, string? name, string? email)
     {
-        Id = id;
+        UserId = userId;
         Name = name;
         Email = email;
     }
