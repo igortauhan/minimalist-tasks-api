@@ -1,15 +1,20 @@
 using Microsoft.EntityFrameworkCore;
-using MinimalistTasks.Domain.Interface;
+using MinimalistTasks.Domain.Model;
 
 namespace MinimalistTasks.Domain.Context;
 
 public class MinimalistTasksContext : DbContext
 {
-    public DbSet<IUser> Users { get; set; }
-    public DbSet<ITodo> Todos { get; set; }
+    public DbSet<User> Users { get; set; }
+    public DbSet<Todo> Todos { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        // TODO
+        IConfigurationRoot configurationRoot = new ConfigurationBuilder()
+            .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+            .AddJsonFile("appsettings.json")
+            .Build();
+
+        optionsBuilder.UseNpgsql(configurationRoot.GetConnectionString("DefaultConnection"));
     }
 }
