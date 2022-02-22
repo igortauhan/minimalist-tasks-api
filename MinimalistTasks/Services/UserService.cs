@@ -15,6 +15,7 @@ public class UserService
 
     public async Task<IUser> Insert(User user)
     {
+        user.UserId = null;
         _context.Add(user);
         await _context.SaveChangesAsync();
         return user;
