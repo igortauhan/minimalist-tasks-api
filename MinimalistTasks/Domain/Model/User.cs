@@ -7,7 +7,7 @@ public class User : IUser
     public int UserId { get; set; }
     public string? Name { get; set; }
     public string? Email { get; set; }
-    public IEnumerable<ITodo> Todos { get; set; } = new List<ITodo>();
+    public IEnumerable<Todo> Todos { get; set; } = new List<Todo>();
 
     public User()
     {
