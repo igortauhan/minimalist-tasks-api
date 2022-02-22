@@ -1,4 +1,5 @@
 using MinimalistTasks.Domain.Context;
+using MinimalistTasks.Domain.dto;
 using MinimalistTasks.Domain.Interface;
 using MinimalistTasks.Domain.Model;
 
@@ -13,11 +14,26 @@ public class UserService
         _context = context;
     }
 
-    public async Task<IUser> Insert(User user)
+    public async Task<UserDTO> Insert(UserDTO userDto)
     {
-        user.UserId = null;
+        var user = FromDto(userDto);
         _context.Add(user);
         await _context.SaveChangesAsync();
-        return user;
+        return ToDto(user);
+    }
+
+    private static UserDTO ToDto(IUser user)
+    {
+        return new UserDTO(user);
+    }
+
+    private static User FromDto(UserDTO userDto)
+    {
+        return new User
+        {
+            UserId = userDto.UserId, 
+            Name = userDto.Name, 
+            Email = userDto.Email
+        };
     }
 }

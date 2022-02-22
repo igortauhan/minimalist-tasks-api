@@ -24,11 +24,11 @@ namespace MinimalistTasks.Migrations
 
             modelBuilder.Entity("MinimalistTasks.Domain.Model.Todo", b =>
                 {
-                    b.Property<int>("TodoId")
+                    b.Property<int?>("TodoId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("TodoId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int?>("TodoId"));
 
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("timestamp with time zone");
@@ -51,11 +51,11 @@ namespace MinimalistTasks.Migrations
 
             modelBuilder.Entity("MinimalistTasks.Domain.Model.User", b =>
                 {
-                    b.Property<int>("UserId")
+                    b.Property<int?>("UserId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("UserId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int?>("UserId"));
 
                     b.Property<string>("Email")
                         .HasColumnType("text");

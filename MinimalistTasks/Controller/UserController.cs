@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using MinimalistTasks.Domain.dto;
 using MinimalistTasks.Domain.Interface;
-using MinimalistTasks.Domain.Model;
 using MinimalistTasks.Services;
 
 namespace MinimalistTasks.Controller;
@@ -19,9 +19,9 @@ public class UserController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IUser> Insert([FromBody] User user)
+    public async Task<UserDTO> Insert([FromBody] UserDTO userDto)
     {
-        var obj = await _service.Insert(user);
+        var obj = await _service.Insert(userDto);
         return obj;
     }
 }
