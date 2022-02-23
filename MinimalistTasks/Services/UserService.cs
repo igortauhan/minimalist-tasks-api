@@ -19,7 +19,7 @@ public class UserService
     /// Returns a list with all Users
     /// </summary>
     /// <returns>List - UserDto</returns>
-    public async Task<IEnumerable<UserDto>> GetAll()
+    public async Task<IEnumerable<UserDto>> GetAllAsync()
     {
         return await _context.Users.Select(x => ToDto(x)).ToListAsync();
     }
@@ -29,7 +29,7 @@ public class UserService
     /// </summary>
     /// <param name="userId">int</param>
     /// <returns>UserDto</returns>
-    public async Task<UserDto> GetUser(int userId)
+    public async Task<UserDto> GetUserAsync(int userId)
     {
         var obj = await _context.Users.FindAsync(userId);
         if (obj == null)
@@ -44,7 +44,7 @@ public class UserService
     /// </summary>
     /// <param name="userDto">UserDto</param>
     /// <returns>UserDto</returns>
-    public async Task<UserDto> Insert(UserDto userDto)
+    public async Task<UserDto> InsertAsync(UserDto userDto)
     {
         var user = FromDto(userDto);
         user.UserId = null;
@@ -59,7 +59,7 @@ public class UserService
     /// <param name="id">int</param>
     /// <param name="userDto">UserDto</param>
     /// <returns>UserDto</returns>
-    public async Task<UserDto> Update(int id, UserDto userDto)
+    public async Task<UserDto> UpdateAsync(int id, UserDto userDto)
     {
         bool hasUser = await _context.Users.AnyAsync(x => x.UserId == id);
         if (!hasUser)
@@ -80,9 +80,9 @@ public class UserService
     /// Receives the User id and delete it from the database
     /// </summary>
     /// <param name="id"></param>
-    public async Task Delete(int id)
+    public async Task DeleteAsync(int id)
     {
-        var userDto = await GetUser(id);
+        var userDto = await GetUserAsync(id);
         _context.ChangeTracker.Clear();
         var user = FromDto(userDto);
         _context.Remove(user);
