@@ -1,7 +1,6 @@
-using System.Xml;
 using Microsoft.EntityFrameworkCore;
 using MinimalistTasks.Domain.Context;
-using MinimalistTasks.Domain.dto;
+using MinimalistTasks.Domain.Dto;
 using MinimalistTasks.Domain.Interface;
 using MinimalistTasks.Domain.Model;
 
@@ -19,8 +18,8 @@ public class UserService
     /// <summary>
     /// Returns a list with all Users
     /// </summary>
-    /// <returns>List - UserDTO</returns>
-    public async Task<IEnumerable<UserDTO>> GetAll()
+    /// <returns>List - UserDto</returns>
+    public async Task<IEnumerable<UserDto>> GetAll()
     {
         return await _context.Users.Select(x => ToDto(x)).ToListAsync();
     }
@@ -29,8 +28,8 @@ public class UserService
     /// Returns a user if found
     /// </summary>
     /// <param name="userId">int</param>
-    /// <returns>UserDTO</returns>
-    public async Task<UserDTO> GetUser(int userId)
+    /// <returns>UserDto</returns>
+    public async Task<UserDto> GetUser(int userId)
     {
         var obj = await _context.Users.FindAsync(userId);
         if (obj == null)
@@ -41,11 +40,11 @@ public class UserService
     }
 
     /// <summary>
-    /// Receives a UserDTO from the controller, converts it to User and inserts it into the Database
+    /// Receives a UserDto from the controller, converts it to User and inserts it into the Database
     /// </summary>
-    /// <param name="userDto">UserDTO</param>
-    /// <returns>UserDTO</returns>
-    public async Task<UserDTO> Insert(UserDTO userDto)
+    /// <param name="userDto">UserDto</param>
+    /// <returns>UserDto</returns>
+    public async Task<UserDto> Insert(UserDto userDto)
     {
         var user = FromDto(userDto);
         user.UserId = null;
@@ -55,12 +54,12 @@ public class UserService
     }
 
     /// <summary>
-    /// Receives the Id and the UserDTO object with new data and transfer it to User in the database
+    /// Receives the Id and the UserDto object with new data and transfer it to User in the database
     /// </summary>
     /// <param name="id">int</param>
-    /// <param name="userDto">UserDTO</param>
-    /// <returns>UserDTO</returns>
-    public async Task<UserDTO> Update(int id, UserDTO userDto)
+    /// <param name="userDto">UserDto</param>
+    /// <returns>UserDto</returns>
+    public async Task<UserDto> Update(int id, UserDto userDto)
     {
         bool hasUser = await _context.Users.AnyAsync(x => x.UserId == id);
         if (!hasUser)
@@ -93,9 +92,9 @@ public class UserService
     /// <summary>
     /// Returns a User object with new data
     /// </summary>
-    /// <param name="userDto">UserDTO</param>
+    /// <param name="userDto">UserDto</param>
     /// <returns>User</returns>
-    private static User UpdateData(UserDTO userDto)
+    private static User UpdateData(UserDto userDto)
     {
         return new User
         {
@@ -106,21 +105,21 @@ public class UserService
     }
 
     /// <summary>
-    /// Convert a User to UserDTO
+    /// Convert a User to UserDto
     /// </summary>
     /// <param name="user">IUser</param>
-    /// <returns>UserDTO</returns>
-    private static UserDTO ToDto(IUser user)
+    /// <returns>UserDto</returns>
+    private static UserDto ToDto(IUser user)
     {
-        return new UserDTO(user);
+        return new UserDto(user);
     }
 
     /// <summary>
-    /// Convert a UserDTO to User
+    /// Convert a UserDto to User
     /// </summary>
-    /// <param name="userDto">UserDTO</param>
+    /// <param name="userDto">UserDto</param>
     /// <returns>User</returns>
-    private static User FromDto(UserDTO userDto)
+    private static User FromDto(UserDto userDto)
     {
         return new User
         {
