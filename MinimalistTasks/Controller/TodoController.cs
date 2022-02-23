@@ -24,10 +24,30 @@ public class TodoController : ControllerBase
         return await _service.GetAllAsync();
     }
 
+    [HttpGet("{id:int}")]
+    public async Task<TodoDto> GetTodo(int id)
+    {
+        var obj =  await _service.GetTodoAsync(id);
+        return obj;
+    }
+
     [HttpPost]
     public async Task<TodoDto> Insert([FromBody] TodoDto todoDto)
     {
         var todo = await _service.InsertAsync(todoDto);
         return todo;
+    }
+
+    [HttpPut("{id:int}")]
+    public async Task<TodoDto> Update(int id, [FromBody] NewTodoDto newTodoDto)
+    {
+        var obj = await _service.UpdateAsync(id, newTodoDto);
+        return obj;
+    }
+
+    [HttpDelete("{id:int}")]
+    public async Task Delete(int id)
+    {
+        await _service.DeleteAsync(id);
     }
 }
