@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using MinimalistTasks.Domain.dto;
+using MinimalistTasks.Domain.Dto;
 using MinimalistTasks.Domain.Interface;
 using MinimalistTasks.Services;
 
@@ -19,36 +19,36 @@ public class UserController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IEnumerable<UserDTO>> GetAll()
+    public async Task<IEnumerable<UserDto>> GetAll()
     {
-        var obj = await _service.GetAll();
+        var obj = await _service.GetAllAsync();
         return obj;
     }
 
     [HttpGet("{id:int}")]
-    public async Task<UserDTO> GetUser(int id)
+    public async Task<UserDto> GetUser(int id)
     {
-        var obj = await _service.GetUser(id);
+        var obj = await _service.GetUserAsync(id);
         return obj;
     }
 
     [HttpPost]
-    public async Task<UserDTO> Insert([FromBody] UserDTO userDto)
+    public async Task<UserDto> Insert([FromBody] UserDto userDto)
     {
-        var obj = await _service.Insert(userDto);
+        var obj = await _service.InsertAsync(userDto);
         return obj;
     }
 
     [HttpPut("{id:int}")]
-    public async Task<UserDTO> Update(int id, [FromBody] UserDTO userDto)
+    public async Task<UserDto> Update(int id, [FromBody] UserDto userDto)
     {
-        var obj = await _service.Update(id, userDto);
+        var obj = await _service.UpdateAsync(id, userDto);
         return obj;
     }
 
     [HttpDelete("{id:int}")]
     public async Task Delete(int id)
     {
-        await _service.Delete(id);
+        await _service.DeleteAsync(id);
     }
 }

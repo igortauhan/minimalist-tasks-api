@@ -1,20 +1,20 @@
 using MinimalistTasks.Domain.Interface;
 using MinimalistTasks.Domain.Model;
 
-namespace MinimalistTasks.Domain.dto;
+namespace MinimalistTasks.Domain.Dto;
 
-public class UserDTO
+public class UserDto
 {
     public int? UserId { get; set; }
     public string? Name { get; set; }
     public string? Email { get; set; }
     public IEnumerable<Todo> Todos { get; set; } = new List<Todo>();
 
-    public UserDTO()
+    public UserDto()
     {
     }
 
-    public UserDTO(IUser user)
+    public UserDto(IUser user)
     {
         UserId = user.UserId;
         Name = user.Name;
