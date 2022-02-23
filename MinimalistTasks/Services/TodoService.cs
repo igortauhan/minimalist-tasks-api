@@ -3,6 +3,7 @@ using MinimalistTasks.Domain.Context;
 using MinimalistTasks.Domain.Dto;
 using MinimalistTasks.Domain.Interface;
 using MinimalistTasks.Domain.Model;
+using MinimalistTasks.Exceptions;
 
 namespace MinimalistTasks.Services;
 
@@ -29,17 +30,16 @@ public class TodoService
     /// <summary>
     /// Returns a Todo if found
     /// </summary>
-    /// <param name="id">int</param>
+    /// <param name="todoId">int</param>
     /// <returns>TodoDto</returns>
     /// <exception cref="Exception"></exception>
-    public async Task<TodoDto> GetTodoAsync(int id)
+    public async Task<TodoDto> GetTodoAsync(int todoId)
     {
-        var todo = await _context.Todos.FindAsync(id);
+        var todo = await _context.Todos.FindAsync(todoId);
         if (todo == null)
         {
-            throw new Exception("Not found!");
+            throw new ObjectNotFoundException("Todo not found! Id: " + todoId);
         }
-
         return ToDto(todo);
     }
 
@@ -89,6 +89,10 @@ public class TodoService
         return ToDto(todo);
     }
 
+    /// <summary>
+    /// Receives the Todo todoId and delete it to the database
+    /// </summary>
+    /// <param name="id">int</param>
     public async Task DeleteAsync(int id)
     {
         var todoDto = await GetTodoAsync(id);
