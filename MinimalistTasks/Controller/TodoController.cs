@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
+using MinimalistTasks.Domain.Dto;
 using MinimalistTasks.Domain.Interface;
-using MinimalistTasks.Domain.Model;
+using MinimalistTasks.Services;
 
 namespace MinimalistTasks.Controller;
 
@@ -9,38 +10,24 @@ namespace MinimalistTasks.Controller;
 public class TodoController : ControllerBase
 {
     private readonly ILogger<ITodo> _logger;
+    private readonly TodoService _service;
 
-    public TodoController(ILogger<ITodo> logger)
+    public TodoController(ILogger<ITodo> logger, TodoService service)
     {
         _logger = logger;
+        _service = service;
     }
 
     [HttpGet]
-    public async Task<IEnumerable<ITodo>> GetTodos()
+    public async Task<IEnumerable<TodoDto>> GetAll()
     {
-        IEnumerable<ITodo> todos = new List<ITodo>();
-        
-        ITodo todoOne = new Todo
-        {
-            TodoId = 1,
-            Text = "Task one",
-            CreationDate = DateTime.Now,
-            IsCompleted = false
-        };
-        
-        ITodo todoTwo = new Todo
-        {
-            TodoId = 2,
-            Text = "Task two",
-            CreationDate = DateTime.Now,
-            IsCompleted = true
-        };
+        return await _service.GetAllAsync();
+    }
 
-        todos = todos.Append(todoOne);
-        todos = todos.Append(todoTwo);
-        
-        _logger.LogInformation("Task: {text}", todoOne.Text);
-
-        return todos;
+    [HttpPost]
+    public async Task<TodoDto> Insert([FromBody] TodoDto todoDto)
+    {
+        var todo = await _service.InsertAsync(todoDto);
+        return todo;
     }
 }

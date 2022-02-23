@@ -119,7 +119,7 @@ public class UserService
     /// </summary>
     /// <param name="userDto">UserDto</param>
     /// <returns>User</returns>
-    private static User FromDto(UserDto userDto)
+    public User FromDto(UserDto userDto)
     {
         return new User
         {
