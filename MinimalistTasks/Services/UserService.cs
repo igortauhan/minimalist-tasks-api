@@ -3,6 +3,7 @@ using MinimalistTasks.Domain.Context;
 using MinimalistTasks.Domain.Dto;
 using MinimalistTasks.Domain.Interface;
 using MinimalistTasks.Domain.Model;
+using MinimalistTasks.Exceptions;
 
 namespace MinimalistTasks.Services;
 
@@ -34,8 +35,9 @@ public class UserService
         var obj = await _context.Users.FindAsync(userId);
         if (obj == null)
         {
-            throw new Exception("Not found!");
+            throw new ObjectNotFoundException("User not found! Id: " + userId);
         }
+
         return ToDto(obj);
     }
 
@@ -64,22 +66,22 @@ public class UserService
         bool hasUser = await _context.Users.AnyAsync(x => x.UserId == id);
         if (!hasUser)
         {
-            throw new Exception("Not found!");
+            throw new ObjectNotFoundException("User not found! Id: " + id);
         }
 
         userDto.UserId = id;
         var newUser = UpdateData(userDto);
-        
+
         _context.Update(newUser);
         await _context.SaveChangesAsync();
-        
+
         return ToDto(newUser);
     }
 
     /// <summary>
     /// Receives the User id and delete it from the database
     /// </summary>
-    /// <param name="id"></param>
+    /// <param name="id">int</param>
     public async Task DeleteAsync(int id)
     {
         var userDto = await GetUserAsync(id);
@@ -98,8 +100,8 @@ public class UserService
     {
         return new User
         {
-            UserId = userDto.UserId, 
-            Name = userDto.Name, 
+            UserId = userDto.UserId,
+            Name = userDto.Name,
             Email = userDto.Email
         };
     }
@@ -123,8 +125,8 @@ public class UserService
     {
         return new User
         {
-            UserId = userDto.UserId, 
-            Name = userDto.Name, 
+            UserId = userDto.UserId,
+            Name = userDto.Name,
             Email = userDto.Email
         };
     }
