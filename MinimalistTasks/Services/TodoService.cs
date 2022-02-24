@@ -52,6 +52,8 @@ public class TodoService
     public async Task<TodoDto> InsertAsync(TodoDto todoDto)
     {
         var todo = FromDto(todoDto);
+        todo.CreationDate = DateTime.UtcNow;
+        todo.IsCompleted = false;
         
         // Get the User
         var userDto = await _userService.GetUserAsync(todo.UserId);
@@ -132,10 +134,7 @@ public class TodoService
     {
         return new Todo
         {
-            TodoId = todoDto.TodoId, 
             Text = todoDto.Text, 
-            CreationDate = todoDto.CreationDate, 
-            IsCompleted = todoDto.IsCompleted, 
             UserId = todoDto.UserId
         };
     }
