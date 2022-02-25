@@ -4,10 +4,11 @@ using MinimalistTasks.Domain.Dto;
 using MinimalistTasks.Domain.Interface;
 using MinimalistTasks.Domain.Model;
 using MinimalistTasks.Exceptions;
+using MinimalistTasks.Services.Interface;
 
 namespace MinimalistTasks.Services;
 
-public class TodoService
+public class TodoService : ITodoService
 {
     private readonly MinimalistTasksContext _context;
     private readonly UserService _userService;
@@ -40,6 +41,7 @@ public class TodoService
         {
             throw new ObjectNotFoundException("Todo not found! Id: " + todoId);
         }
+
         return ToDto(todo);
     }
 
@@ -54,21 +56,21 @@ public class TodoService
         var todo = FromDto(todoDto);
         todo.CreationDate = DateTime.UtcNow;
         todo.IsCompleted = false;
-        
+
         // Get the User
         var userDto = await _userService.GetUserAsync(todo.UserId);
         _context.ChangeTracker.Clear();
         var user = _userService.FromDto(userDto);
-        
+
         // Assign the User to Todo
         todo.User = user;
         todo.TodoId = null;
         _context.Todos.Add(todo);
-        
+
         // Add the Todo to User
         user.Todos.ToList().Add(todo);
         _context.Update(user);
-        
+
         await _context.SaveChangesAsync();
         return ToDto(todo);
     }
@@ -84,7 +86,8 @@ public class TodoService
         var todoDto = await GetTodoAsync(id);
         var todo = FromDto(todoDto);
         _context.ChangeTracker.Clear();
-        
+        todo.CreationDate = DateTime.UtcNow;
+
         UpdateData(newTodoDto, todo);
         _context.Todos.Update(todo);
         await _context.SaveChangesAsync();
@@ -134,7 +137,10 @@ public class TodoService
     {
         return new Todo
         {
-            Text = todoDto.Text, 
+            TodoId = todoDto.TodoId,
+            Text = todoDto.Text,
+            CreationDate = todoDto.CreationDate,
+            IsCompleted = todoDto.IsCompleted,
             UserId = todoDto.UserId
         };
     }
