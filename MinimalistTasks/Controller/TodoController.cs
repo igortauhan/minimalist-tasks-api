@@ -10,9 +10,9 @@ namespace MinimalistTasks.Controller;
 public class TodoController : ControllerBase
 {
     private readonly ILogger<ITodo> _logger;
-    private readonly TodoService _service;
+    private readonly ITodoService _service;
 
-    public TodoController(ILogger<ITodo> logger, TodoService service)
+    public TodoController(ILogger<ITodo> logger, ITodoService service)
     {
         _logger = logger;
         _service = service;
