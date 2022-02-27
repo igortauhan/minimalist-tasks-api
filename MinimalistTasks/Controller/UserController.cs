@@ -10,9 +10,9 @@ namespace MinimalistTasks.Controller;
 public class UserController : ControllerBase
 {
     private readonly ILogger<IUser> _logger;
-    private readonly UserService _service;
+    private readonly IUserService _service;
 
-    public UserController(ILogger<IUser> logger, UserService service)
+    public UserController(ILogger<IUser> logger, IUserService service)
     {
         _logger = logger;
         _service = service;

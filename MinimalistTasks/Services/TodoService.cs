@@ -4,7 +4,6 @@ using MinimalistTasks.Domain.Dto;
 using MinimalistTasks.Domain.Interface;
 using MinimalistTasks.Domain.Model;
 using MinimalistTasks.Exceptions;
-using MinimalistTasks.Services.Interface;
 
 namespace MinimalistTasks.Services;
 
