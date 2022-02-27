@@ -1,4 +1,5 @@
 using MinimalistTasks.Domain.Dto;
+using MinimalistTasks.Domain.Model;
 
 namespace MinimalistTasks.Services;
 
@@ -37,4 +38,11 @@ public interface IUserService
     /// </summary>
     /// <param name="id">int</param>
     Task DeleteAsync(int id);
+
+    /// <summary>
+    /// Convert a UserDto to User
+    /// </summary>
+    /// <param name="userDto">UserDto</param>
+    /// <returns>User</returns>
+    User FromDto(UserDto userDto);
 }

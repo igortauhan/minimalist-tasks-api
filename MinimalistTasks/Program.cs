@@ -12,8 +12,8 @@ builder.Services.AddSwaggerGen();
 
 // Dependency injection
 builder.Services.AddScoped<MinimalistTasksContext>();
-builder.Services.AddScoped<UserService>();
-builder.Services.AddScoped<TodoService>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ITodoService, TodoService>();
 
 var app = builder.Build();
 
