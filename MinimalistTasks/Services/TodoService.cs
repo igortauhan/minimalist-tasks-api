@@ -10,9 +10,9 @@ namespace MinimalistTasks.Services;
 public class TodoService : ITodoService
 {
     private readonly MinimalistTasksContext _context;
-    private readonly UserService _userService;
+    private readonly IUserService _userService;
 
-    public TodoService(MinimalistTasksContext context, UserService userService)
+    public TodoService(MinimalistTasksContext context, IUserService userService)
     {
         _context = context;
         _userService = userService;
