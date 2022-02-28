@@ -102,7 +102,8 @@ public class UserService : IUserService
         {
             UserId = userDto.UserId,
             Name = userDto.Name,
-            Email = userDto.Email
+            Email = userDto.Email,
+            Password = userDto.Password
         };
     }
 
@@ -127,7 +128,9 @@ public class UserService : IUserService
         {
             UserId = userDto.UserId,
             Name = userDto.Name,
-            Email = userDto.Email
+            Email = userDto.Email,
+            Password = userDto.Password,
+            Role = "Normal"
         };
     }
 }
