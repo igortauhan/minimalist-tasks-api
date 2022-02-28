@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MinimalistTasks.Migrations
 {
     [DbContext(typeof(MinimalistTasksContext))]
-    [Migration("20220222163028_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20220228111518_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -26,11 +26,11 @@ namespace MinimalistTasks.Migrations
 
             modelBuilder.Entity("MinimalistTasks.Domain.Model.Todo", b =>
                 {
-                    b.Property<int>("TodoId")
+                    b.Property<int?>("TodoId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("TodoId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int?>("TodoId"));
 
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("timestamp with time zone");
@@ -53,16 +53,24 @@ namespace MinimalistTasks.Migrations
 
             modelBuilder.Entity("MinimalistTasks.Domain.Model.User", b =>
                 {
-                    b.Property<int>("UserId")
+                    b.Property<int?>("UserId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("UserId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int?>("UserId"));
 
                     b.Property<string>("Email")
                         .HasColumnType("text");
 
                     b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Role")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("UserId");
