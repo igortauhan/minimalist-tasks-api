@@ -83,6 +83,7 @@ public class UserService : IUserService
         }
 
         userDto.UserId = id;
+        userDto.Role = "Normal";
         var newUser = UpdateData(userDto);
 
         _context.Update(newUser);
@@ -116,7 +117,8 @@ public class UserService : IUserService
             UserId = userDto.UserId,
             Name = userDto.Name,
             Email = userDto.Email,
-            Password = userDto.Password
+            Password = userDto.Password,
+            Role = userDto.Role
         };
     }
 

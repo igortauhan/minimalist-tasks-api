@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MinimalistTasks.Domain.Dto;
 using MinimalistTasks.Domain.Interface;
@@ -18,7 +19,22 @@ public class UserController : ControllerBase
         _service = service;
     }
 
+    [HttpPost]
+    [Route("login")]
+    public async Task<dynamic> Authenticate([FromBody] UserDto userDto)
+    {
+        var user = await _service.GetUserAsync(userDto.Email, userDto.Password);
+        var token = TokenService.GenerateToken(user);
+        user.Password = "";
+        return new
+        {
+            user = user,
+            token = token
+        };
+    }
+
     [HttpGet]
+    [Authorize(Roles = "Admin")]
     public async Task<IEnumerable<UserDto>> GetAll()
     {
         var obj = await _service.GetAllAsync();
@@ -40,6 +56,7 @@ public class UserController : ControllerBase
     }
 
     [HttpPut("{id:int}")]
+    [Authorize]
     public async Task<UserDto> Update(int id, [FromBody] UserDto userDto)
     {
         var obj = await _service.UpdateAsync(id, userDto);
@@ -47,6 +64,7 @@ public class UserController : ControllerBase
     }
 
     [HttpDelete("{id:int}")]
+    [Authorize]
     public async Task Delete(int id)
     {
         await _service.DeleteAsync(id);
