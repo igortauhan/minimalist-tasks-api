@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MinimalistTasks.Domain.Dto;
 using MinimalistTasks.Domain.Interface;
@@ -19,12 +20,14 @@ public class TodoController : ControllerBase
     }
 
     [HttpGet]
+    [Authorize]
     public async Task<IEnumerable<TodoDto>> GetAll()
     {
         return await _service.GetAllAsync();
     }
 
     [HttpGet("{id:int}")]
+    [Authorize]
     public async Task<TodoDto> GetTodo(int id)
     {
         var obj =  await _service.GetTodoAsync(id);
@@ -32,6 +35,7 @@ public class TodoController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize]
     public async Task<TodoDto> Insert([FromBody] TodoDto todoDto)
     {
         var todo = await _service.InsertAsync(todoDto);
@@ -39,6 +43,7 @@ public class TodoController : ControllerBase
     }
 
     [HttpPut("{id:int}")]
+    [Authorize]
     public async Task<TodoDto> Update(int id, [FromBody] NewTodoDto newTodoDto)
     {
         var obj = await _service.UpdateAsync(id, newTodoDto);
@@ -46,6 +51,7 @@ public class TodoController : ControllerBase
     }
 
     [HttpDelete("{id:int}")]
+    [Authorize]
     public async Task Delete(int id)
     {
         await _service.DeleteAsync(id);
