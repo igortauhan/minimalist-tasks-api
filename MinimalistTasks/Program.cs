@@ -23,7 +23,7 @@ IConfigurationRoot configurationRoot = new ConfigurationBuilder()
     .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
     .AddJsonFile("appsettings.json")
     .Build();
-var key = Encoding.ASCII.GetBytes(configurationRoot.GetValue<string>("Jwt:Key"));
+var key = Encoding.ASCII.GetBytes(JwtKeyService.GetKey());
 builder.Services.AddAuthentication(options =>
     {
         options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
