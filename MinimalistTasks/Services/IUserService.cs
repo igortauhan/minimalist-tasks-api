@@ -1,4 +1,5 @@
 using MinimalistTasks.Domain.Dto;
+using MinimalistTasks.Domain.Interface;
 using MinimalistTasks.Domain.Model;
 
 namespace MinimalistTasks.Services;
@@ -17,6 +18,8 @@ public interface IUserService
     /// <param name="userId">int</param>
     /// <returns>UserDto</returns>
     Task<UserDto> GetUserAsync(int userId);
+
+    Task<User> GetUserAsync(string email, string password);
 
     /// <summary>
     /// Receives a UserDto from the controller, converts it to User and inserts it into the Database

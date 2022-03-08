@@ -41,6 +41,19 @@ public class UserService : IUserService
         return ToDto(obj);
     }
 
+    public async Task<User> GetUserAsync(string email, string password)
+    {
+        var obj = await _context.Users
+            .FirstOrDefaultAsync(x => x.Email == email && x.Password == password);
+        
+        if (obj == null)
+        {
+            throw new ObjectNotFoundException("User not found! Email: " + email);
+        }
+
+        return obj;
+    }
+
     /// <summary>
     /// Receives a UserDto from the controller, converts it to User and inserts it into the Database
     /// </summary>
