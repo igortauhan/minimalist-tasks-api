@@ -19,10 +19,6 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ITodoService, TodoService>();
 
 // Authentication
-IConfigurationRoot configurationRoot = new ConfigurationBuilder()
-    .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-    .AddJsonFile("appsettings.json")
-    .Build();
 var key = Encoding.ASCII.GetBytes(JwtKeyService.GetKey());
 builder.Services.AddAuthentication(options =>
     {
