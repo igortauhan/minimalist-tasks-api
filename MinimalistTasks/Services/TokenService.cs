@@ -10,13 +10,8 @@ public class TokenService
 {
     public static string GenerateToken(User user)
     {
-        IConfigurationRoot configurationRoot = new ConfigurationBuilder()
-            .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-            .AddJsonFile("appsettings.json")
-            .Build();
-
         var tokenHandler = new JwtSecurityTokenHandler();
-        var key = Encoding.ASCII.GetBytes(configurationRoot.GetValue<string>("Jwt:Key"));
+        var key = Encoding.ASCII.GetBytes(JwtKeyService.GetKey());
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(new Claim[]

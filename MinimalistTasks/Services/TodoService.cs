@@ -24,7 +24,7 @@ public class TodoService : ITodoService
     /// <returns>List - TodoDto</returns>
     public async Task<IEnumerable<TodoDto>> GetAllAsync()
     {
-        return await _context.Todos.Select(x => ToDto(x)).ToListAsync();
+        return await _context.Todos.OrderBy(x => x.CreationDate).Select(x => ToDto(x)).ToListAsync();
     }
 
     /// <summary>
