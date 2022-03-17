@@ -7,6 +7,7 @@ Feito com:
 - .Net 6.0
 - Entity Framework Core
 - PostgreSQL no Docker
+- Migrations
 
 Contém:
 
